@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>vue2</title>
+  </head>
+  <body>
+    <!-- Consigo pegar um dado/info usando 2 chaves; usei o titulo do main.js;
+    o : antes do comando significa que é uma PROPERTY BIND SIMPLIFICADA, pois normal é v-bind.
+    USANDO V-FOR, POSSO USAR UMA UNICA LINHA DO VUE {{TIME.NOME}} que ele vai pegar a lista de todos os times cadastrados na lista
+    do javascript (time in TIMES)
+
+    Instalei Bootstrap via npm e adicionei como dependencia (--save.. o --save-dev: dependência de desenvolvedor)
+
+     V-MODEL:
+     Nosso foco é entender o v-model. Por este motivo, criamos uma interpolação, logo acima do primeiro input. No browser, verificamos em tempo real, que, quando atualizamos um valor neste input, automaticamente estamos alterando em nosso modelos de dados. Com este           exemplo, ficará mais fácil entender que o v-model é o responsável por este two-way data binding. O v-model também altera a nossa
+     propriedade value, em nosso campo de texto. A alteração é feita em tempo real, porque existe um evento em nosso input que nos possibilita esta visualização. Desta forma acabamos de executar nosso two-way. Podemos ter a necessidade, em algum projeto, de ter        uma propriedade inicializada por um modelo de dados e não queremos que este dado seja modificado, via formulário. Como faremos isso? Basta trocar o v-model pelo :value como no exemplo: <input type="text" class="form-control" :value="novoJogo.casa.gols">
+     Desta forma, a view não conseguirá alterar o seu modelo de dados, porque está trabalhando com one-way data binding. É muito importante vocês fixarem este exemplo porque, nem sempre irão precisar utilizar o conceito de two-way.
+
+  Iremos inserir o v-if seguido da nossa lógica. Caso retorne true, o conteúdo será exibido, caso contrário, ele será escondido, automaticamente.
+   O Vue.js insere um display:none em nosso css. Desta forma não precisamos ter esse trabalho .
+  -->
+  <div id="app" class="container">
+    <div class="form">
+      <h3>Campeonato Brasileiro - Série A - 2018</h3>
+      <a class="btn btn-success" style="height: 40px; width: 120px; position: relative;" @click="createNovoJogo">Novo Jogo</a>
+      <br/><br/>
+      <div v-if="view == 'tabela'"> <!-- O V-IF permite eu usar como o Display do css (posso esconder ou nao)-->
+        <input type="text" class="form-control" v-model=" filter">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th v-for="coluna in colunas">
+                <a href="#" @click.prevent="sortBy(coluna)">{{coluna | ucwords}}</a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="time in timesFiltered"> <!-- Mudei de TIMES pra timesFiltered-->
+              <td>
+                <img :src="time.escudo" style="height: 30px; width: 30px">
+                <strong>{{time.nome}}</strong>
+              </td>
+              <td>{{time.pontos}}</td>
+              <td>{{time.GP}}</td>
+              <td>{{time.GC}}</td>
+              <td>{{time | saldo}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+       <!-- <div v-if="view == 'novoJogo'">  <!--Se clicar no novoJogo, mostra essa tabela: -->
+         <div v-else>
+         <!-- <div v-if>-->
+              <form class="form-inline">
+                <div class="form-inline"><br/>
+                  <!-- MAIS COMENTARIOS, TOPO DO HTML;
+                  Para que nossa view altere o nosso modelo, é necessário utilizar uma diretiva chamada v-model.
+                  o v-model é "flexivel, tem varios comportamentos diferentes": v-model terá um comportamento diferente
+                  para cada campo do formulário que for utilizado.No checkbox, por exemplo, ele irá trabalhar com true ou false,
+                  no select ele irá pegar o campo que selecionou e alterar no modelo de dados. O importante é saber que o
+                  v-model será a ponte de atualização entre sua view e seu modelo.  -->
+                  <label class="control-label">
+                    {{novoJogo.casa.time.nome}}
+                    <img :src="novoJogo.casa.time.escudo" style="height: 30px; width: 30px;">
+                  </label>
+                  <input type="text" style="width: 40px; height: 40px;" class="form-control" v-model="novoJogo.casa.gols" @keyup.enter="fimJogo">
+                </div>
+              <span> X </span>
+              <div class="form-group">
+                <label class="control-label">
+                  <input type="text" style="width: 40px" class="form-control" v-model="novoJogo.fora.gols">
+                  <img :src="novoJogo.fora.time.escudo" style="height: 30px; width: 30px;">
+                  {{novoJogo.fora.time.nome}}
+                </label>
+              </div>
+              <!-- Posso usar v-on:click($event,1,2) ou o @click mesmo-->
+              <button type="button" class="btn btn-danger" @click="fimJogo">Fim de Jogo</button>
+              </form>
+       </div>
+    </div>
+  </div>
+  <script src="/dist/build.js"></script>
+  </body>
+</html>
