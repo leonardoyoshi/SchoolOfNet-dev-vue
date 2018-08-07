@@ -47,7 +47,7 @@ let meuVue = new Vue({
         this.novoJogo.casa.time.fimJogo(timeAdversario, gols, golsAdversario);
         this.showView('tabela');
       },
-      createNovoJogo(){
+      novoJogo(){
         let indexCasa = Math.floor(Math.random()*8),
             indexFora = Math.floor(Math.random()*8);
 
