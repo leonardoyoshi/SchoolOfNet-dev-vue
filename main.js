@@ -47,7 +47,7 @@ let meuVue = new Vue({
         this.novoJogo.casa.time.fimJogo(timeAdversario, gols, golsAdversario);
         this.showView('tabela');
       },
-      novoJogo(){
+      createNovoJogo(){
         let indexCasa = Math.floor(Math.random()*8),
             indexFora = Math.floor(Math.random()*8);
 
@@ -79,7 +79,7 @@ let meuVue = new Vue({
         return time.GP - time.GC;
       },
       ucwords(value){
-        return value.charAt(0).toUpperCase() + value.slice(1)//pega a primeira letra e deixa em maiúscula, depois concatena
+        return value.charAt(0).toUpperCase() + value.slice(1);//pega a primeira letra e deixa em maiúscula, depois concatena
       }
     }
 });

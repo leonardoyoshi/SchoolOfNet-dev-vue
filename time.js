@@ -15,7 +15,7 @@ export class Time {
   }
 
   fimJogo(timeAdversario, gols, golsAdversario){
-    if(gols == golsAdversario){               //empate
+    if(gols == golsAdversario){ //empate
       this.updateInfo(1, gols, golsAdversario); //1 é a qntidade de pontos a serem somados
       timeAdversario.updateInfo(1,golsAdversario,gols);
     } else {
